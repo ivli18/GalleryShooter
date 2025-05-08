@@ -10,7 +10,7 @@ class TitleScene extends Phaser.Scene {
     }
 
     create() {
-        // === STARFIELD ===
+        // STARFIELD
         this.stars = this.add.group();
         this.time.addEvent({
             delay: 75,
@@ -18,7 +18,7 @@ class TitleScene extends Phaser.Scene {
             loop: true
         });
  
-        // === TITLE TEXT ===
+        // TITLE TEXT
         this.add.text(400, 200, 'Invaders of\nSpace(?)', {
             fontSize: '64px',
             color: '#ffffff',
@@ -38,8 +38,18 @@ class TitleScene extends Phaser.Scene {
             fontStyle: 'bold'
         }).setOrigin(0.5).setDepth(1);
 
-        // === SPACE TO START ===
+        // SPACE TO START
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+
+        // HIGH SCORE
+        this.highScore = this.registry.get('highScore') || 0;
+        this.add.text(400, 500, `High Score: ${this.highScore}`, {
+            fontSize: '28px',
+            color: '#ffffff',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
     }
 
     update() {
@@ -60,7 +70,7 @@ class TitleScene extends Phaser.Scene {
         this.stars.add(star);
         this.tweens.add({
             targets: star,
-            y: this.game.config.height + 100, // Move down past screen
+            y: this.game.config.height + 100,
             duration: Phaser.Math.Between(2000, 5000),
             onComplete: () => {
                 star.destroy();

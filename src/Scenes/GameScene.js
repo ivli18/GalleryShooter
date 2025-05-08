@@ -256,6 +256,10 @@ class GameScene extends Phaser.Scene {
         const gameOver = () => {
             this.isGameOver = true;
             this.player.destroy();
+            if (this.score > (this.registry.get('highScore') || 0)) {
+                this.registry.set('highScore', this.score);
+            }
+            this.scene.start('TitleScene');            
             this.add.text(400, 400, 'Game Over', { fontSize: '48px', color: '#fff', fontStyle: 'bold' }).setOrigin(0.5).setDepth(1000);
             this.add.text(400, 500, 'Click to Restart', {
                 fontSize: '32px',
