@@ -42,14 +42,14 @@ class TitleScene extends Phaser.Scene {
         this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
 
         // HIGH SCORE
-        this.highScore = this.registry.get('highScore') || 0;
+        let storedHighScore = localStorage.getItem('highScore') || 0;
+        this.highScore = parseInt(storedHighScore);
         this.add.text(400, 500, `High Score: ${this.highScore}`, {
             fontSize: '28px',
             color: '#ffffff',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
-
     }
 
     update() {
