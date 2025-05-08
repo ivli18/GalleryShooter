@@ -30,7 +30,7 @@ class GameScene extends Phaser.Scene {
         this.lastHitTime = -1000;
         this.iFrameDuration = 500;
         this.playerHealth = 3;
-        this.waveCount = 0;
+        this.waveCount = 5;
         this.waveEnemiesTotal = 0;
         this.waveEnemiesAlive = 0;
         this.waveInProgress = false;
@@ -74,7 +74,7 @@ class GameScene extends Phaser.Scene {
         this.lastFired = 0;
         this.enemies = this.physics.add.group();
 
-        const difficultyScale = 0.8;
+        const difficultyScale = 1;
         this.time.addEvent({
             delay: 1000,
             loop: true,
@@ -269,11 +269,16 @@ class GameScene extends Phaser.Scene {
                 this.scene.start('TitleScene');
             });
         };
+        this.engineSound = this.sound.add('engine', {
+            loop: true,
+            volume: 0.15
+        });
+        this.engineSound.play();
     }
 
     update(time) {
         if (this.isGameOver) return;
-
+        
         if (this.keys.A.isDown) {
             this.player.x -= 5;
         } else if (this.keys.D.isDown) {
